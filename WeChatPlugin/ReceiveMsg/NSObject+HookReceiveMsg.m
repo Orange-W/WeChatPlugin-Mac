@@ -2,22 +2,30 @@
 //  NSObject+HookReceiveMsg.m
 //  WeChatPlugin
 //
-//  Created by pandatv on 2018/10/22.
+//  Created by leonadev on 2018/10/22.
 //  Copyright © 2018年 leonadev. All rights reserved.
 //
 
 #import "NSObject+HookReceiveMsg.h"
 #import "WeChatPlugin.h"
 #import <objc/message.h>
+#import "PluginUtils.h"
 
 @implementation NSObject (HookReceiveMsg)
 
-+ (void)hookRecevieMsg
-{
-    Method oriMethod = class_getInstanceMethod(objc_getClass("MessageService"), @selector(OnSyncBatchAddMsgs:isFirstSync:));
-    Method swzMethod = class_getInstanceMethod([self class], @selector(_hook_onSyncBatchAddMsgs:isFirstSync:));
-    if (oriMethod && swzMethod) {
-        method_exchangeImplementations(oriMethod, swzMethod);
++ (void)hookRecevieMsg {
+    if ([PluginUtils isVersionNewerThan:@"2.3.22"]) {
+        hookMethod(objc_getClass("MessageService"),
+                   @selector(FFImgToOnFavInfoInfoVCZZ:isFirstSync:),
+                   [self class],
+                   @selector(_hook_onSyncBatchAddMsgs:isFirstSync:)
+                   );
+    } else {
+        hookMethod(objc_getClass("MessageService"),
+                   @selector(OnSyncBatchAddMsgs:isFirstSync:),
+                   [self class],
+                   @selector(_hook_onSyncBatchAddMsgs:isFirstSync:)
+                   );
     }
 }
 

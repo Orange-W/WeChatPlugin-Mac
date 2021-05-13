@@ -2,6 +2,10 @@ MacWeChatPlugin
 ===============
 适用于Mac版微信的小插件
 
+目前已验证可用的版本：`2.3.30`
+
+
+
 * 消息防撤回
 
   对方的撤回消息将不再生效（自己的撤回消息不受影响），并且可以知道对方正在撤回哪条消息。
@@ -20,7 +24,9 @@ MacWeChatPlugin
 ------
 安装：
 
-下载打开工程，先进行Build(`command+B`)，然后Run(`command+R`)，此时会启动微信并完成注入，之后Stop并关闭工程，重新打开微信即可。
+下载并打开工程，Edit Scheme，Executable 如果为 None，则更改一下指向/Applications/WeChat.app，否则无法执行Run操作。
+
+先进行Build(`command+B`)，然后Run(`command+R`)，此时会启动微信并完成注入，之后Stop并关闭工程，重新打开微信即可。
 
 卸载：
 
